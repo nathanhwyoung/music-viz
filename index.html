@@ -8,13 +8,62 @@
 https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="music.js"></script>
 </head>
 
 <body>
 
-	<script>
-		console.log(musicData);
+	<script type="text/javascript">
+		var dataset = [];
+		musicData.forEach(function(item) {
+			dataset.push([item.note, item.frequency, item.wavelength]);
+		});
+
+		//width and height
+		// var w = 1400;
+		// var h = 900;
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+
+		var margin = {
+			top: 0,
+			right: 0,
+			bottom: 0,
+			left: 0
+		};
+
+		// SVG element
+		var svg = d3.select("body")
+			.append("svg")
+			.attr("width", w)
+			.attr("height", h);
+
+		var xScale = d3.scale.linear()
+			.domain([0, 100])
+			.range([0, w]);
+
+		var yScale = d3.scale.linear()
+			.domain([0, d3.max(dataset, function(d) {
+				return d.y;
+			})])
+			.range([h, 0]);
+
+		svg.selectAll("circle")
+			.data(dataset)
+			.enter()
+			.append("circle")
+			.attr("cx", function(d) {
+				//frequency
+				return d[1];
+			})
+			.attr("cy", function(d) {
+				//wavelength
+				return d[2];
+			})
+			.attr("r", function(d) {
+				return 2;
+			});
 	</script>
 
 </body>
