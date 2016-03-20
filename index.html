@@ -34,32 +34,35 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 		};
 
 		// SVG element
-		var svg = d3.select("body")
-			.append("svg")
-			.attr("width", w)
-			.attr("height", h);
+		var svg = d3.select('body').append('svg')
+			.attr('width', w + margin.left + margin.right)
+			.attr('height', h + margin.top + margin.bottom)
+			.append('g')
+			.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
 		var xScale = d3.scale.linear()
-			.domain([0, 100])
+			.domain([0, d3.max(dataset, function(d) {
+				return d[1];
+			})])
 			.range([0, w]);
 
 		var yScale = d3.scale.linear()
 			.domain([0, d3.max(dataset, function(d) {
-				return d.y;
+				return d[1];
 			})])
-			.range([h, 0]);
+			.range([0, h]);
 
-		svg.selectAll("circle")
+		svg.selectAll('circle')
 			.data(dataset)
 			.enter()
-			.append("circle")
+			.append('circle')
 			.attr("cx", function(d) {
 				//frequency
-				return d[1];
+				return xScale(d[1]);
 			})
 			.attr("cy", function(d) {
 				//wavelength
-				return d[2];
+				return yScale(d[2]);
 			})
 			.attr("r", function(d) {
 				return 2;
