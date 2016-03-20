@@ -23,13 +23,13 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 		//width and height
 		var margin = {
 			top: 0,
-			right: 0,
-			bottom: 0,
-			left: 0
+			right: 20,
+			bottom: 40,
+			left: 20
 		};
 
-		var w = 400 - margin.left - margin.right,
-			h = 300 - margin.top - margin.bottom;
+		var w = 1400 - margin.left - margin.right,
+			h = 800 - margin.top - margin.bottom;
 
 		// SVG element
 		var svg = d3.select('body').append('svg')
@@ -50,6 +50,18 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 			})])
 			.range([0, h]);
 
+		var xAxis = d3.svg.axis()
+			.scale(xScale)
+			.orient('bottom')
+			.ticks(10)
+			.innerTickSize(12)
+			.outerTickSize(14)
+			.tickPadding(20);
+
+		// var yAxis = d3.svg.axis()
+		// 	.scale(yScale)
+		// 	.orient("bottom");
+
 		svg.selectAll('circle')
 			.data(dataset)
 			.enter()
@@ -66,6 +78,11 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 				return 2;
 			})
 			.attr("fill", "yellow");
+
+		svg.append('g')
+			.attr('class', 'x axis')
+			.attr('transform', 'translate(0, ' + (h + 0) + ')')
+			.call(xAxis);
 	</script>
 
 </body>
