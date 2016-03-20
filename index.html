@@ -21,17 +21,15 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 		});
 
 		//width and height
-		// var w = 1400;
-		// var h = 900;
-		var w = window.innerWidth;
-		var h = window.innerHeight;
-
 		var margin = {
 			top: 0,
 			right: 0,
 			bottom: 0,
 			left: 0
 		};
+
+		var w = 400 - margin.left - margin.right,
+			h = 300 - margin.top - margin.bottom;
 
 		// SVG element
 		var svg = d3.select('body').append('svg')
@@ -66,7 +64,8 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 			})
 			.attr("r", function(d) {
 				return 2;
-			});
+			})
+			.attr("fill", "yellow");
 	</script>
 
 </body>
