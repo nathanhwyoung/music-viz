@@ -20,14 +20,15 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 			dataset.push([item.note, item.frequency, item.wavelength]);
 		});
 
-		//width and height
+		// define margins
 		var margin = {
 			top: 30,
 			right: 20,
 			bottom: 60,
-			left: 20
+			left: 80
 		};
 
+		//width and height
 		var w = 1400 - margin.left - margin.right,
 			h = 800 - margin.top - margin.bottom;
 
@@ -48,7 +49,7 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 			.domain([0, d3.max(dataset, function(d) {
 				return d[2];
 			})])
-			.range([0, h]);
+			.range([h, 0]);
 
 		var xAxis = d3.svg.axis()
 			.scale(xScale)
@@ -58,9 +59,13 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 			.outerTickSize(14)
 			.tickPadding(20);
 
-		// var yAxis = d3.svg.axis()
-		// 	.scale(yScale)
-		// 	.orient("bottom");
+		var yAxis = d3.svg.axis()
+			.scale(yScale)
+			.orient('left')
+			.ticks(10)
+			.innerTickSize(12)
+			.outerTickSize(14)
+			.tickPadding(20);
 
 		svg.selectAll('circle')
 			.data(dataset)
@@ -83,6 +88,11 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 			.attr('class', 'x axis')
 			.attr('transform', 'translate(0, ' + (h + 0) + ')')
 			.call(xAxis);
+
+		svg.append('g')
+			.attr('class', 'y axis')
+			.attr('transform', 'translate(0, ' + (h - 710) + ')')
+			.call(yAxis);
 	</script>
 
 </body>
