@@ -22,9 +22,9 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 
 		//width and height
 		var margin = {
-			top: 0,
+			top: 30,
 			right: 20,
-			bottom: 40,
+			bottom: 60,
 			left: 20
 		};
 
@@ -46,7 +46,7 @@ https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 
 		var yScale = d3.scale.linear()
 			.domain([0, d3.max(dataset, function(d) {
-				return d[1];
+				return d[2];
 			})])
 			.range([0, h]);
 
